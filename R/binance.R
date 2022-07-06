@@ -117,6 +117,9 @@ binance_query <- function(endpoint, method = 'GET',
         config = config)
 
     assignInMyNamespace('BINANCE_WEIGHT', as.integer(headers(res)$`x-mbx-used-weight`))
+    if(length(BINANCE_WEIGHT) == 0){
+        BINANCE_WEIGHT <- 0
+    }
     res <- content(res, as = content_as)
 
     if (content_as == 'parsed' & length(res) == 2 & !is.null(names(res))) {
