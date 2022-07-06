@@ -87,6 +87,7 @@ binance_sign <- function(params) {
 #' @param sign if signature required
 #' @param content_as parameter to httr::content
 #' @return R object
+#' @keywords internal
 #' @export
 #' @importFrom httr headers add_headers content
 #' @importFrom utils assignInMyNamespace
