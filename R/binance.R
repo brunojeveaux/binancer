@@ -96,6 +96,9 @@ binance_query <- function(endpoint, method = 'GET',
                           retry = method == 'GET', content_as = 'parsed') {
 
     # if Binance weight is approaching the limit of 1200, wait for the next full minute
+    if(length(BINANCE_WEIGHT) == 0){
+        BINANCE_WEIGHT = 0
+    }
     if (BINANCE_WEIGHT > 1159) {
         Sys.sleep(61 - as.integer(format(Sys.time(), "%S")))
     }
@@ -117,9 +120,6 @@ binance_query <- function(endpoint, method = 'GET',
         config = config)
 
     assignInMyNamespace('BINANCE_WEIGHT', as.integer(headers(res)$`x-mbx-used-weight`))
-    if(length(BINANCE_WEIGHT) == 0){
-        BINANCE_WEIGHT <- 0
-    }
     res <- content(res, as = content_as)
 
     if (content_as == 'parsed' & length(res) == 2 & !is.null(names(res))) {
